@@ -26,8 +26,8 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 ROOT_DIR = BASE_DIR
 sys.path.append(os.path.join(ROOT_DIR, 'utils'))
 sys.path.append(os.path.join(ROOT_DIR, 'models'))
-from pc_util import random_sampling, read_ply
-from ap_helper import parse_predictions
+from utils.pc_util import random_sampling, read_ply
+from models.ap_helper import parse_predictions
 
 def preprocess_point_cloud(point_cloud):
     ''' Prepare the numpy point cloud (N,3) for forward pass '''
@@ -45,12 +45,12 @@ if __name__=='__main__':
     demo_dir = os.path.join(BASE_DIR, 'demo_files') 
     if FLAGS.dataset == 'sunrgbd':
         sys.path.append(os.path.join(ROOT_DIR, 'sunrgbd'))
-        from sunrgbd_detection_dataset import DC # dataset config
+        from sunrgbd.sunrgbd_detection_dataset import DC # dataset config
         checkpoint_path = os.path.join(demo_dir, 'pretrained_votenet_on_sunrgbd.tar')
         pc_path = os.path.join(demo_dir, 'input_pc_sunrgbd.ply')
     elif FLAGS.dataset == 'scannet':
         sys.path.append(os.path.join(ROOT_DIR, 'scannet'))
-        from scannet_detection_dataset import DC # dataset config
+        from scannet.scannet_detection_dataset import DC # dataset config
         checkpoint_path = os.path.join(demo_dir, 'pretrained_votenet_on_scannet.tar')
         pc_path = os.path.join(demo_dir, 'input_pc_scannet.ply')
     else:
